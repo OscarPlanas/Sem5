@@ -41,6 +41,11 @@ const getall = async (req, res) => {
 	res.json(users);
 };
 
+const getone = async (req, res) => {
+	const user = await User.findById(req.params.id);
+	res.json(user);
+};
+
 module.exports = {
 	register,
 	login,
