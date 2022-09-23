@@ -44,6 +44,11 @@ const getall = async (req: Request, res: Response) => {
 	res.json(users);
 };
 
+const getone = async (req: Request, res: Response) => {
+	const user = await User.findById(req.params.id);
+	res.json(user);
+};
+
 export default {
 	register,
 	login,
