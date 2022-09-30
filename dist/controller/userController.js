@@ -52,6 +52,10 @@ const getall = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield User_1.default.find();
     res.json(users);
 });
+const getone = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield User_1.default.findById(req.params.id);
+    res.json(user);
+});
 exports.default = {
     register,
     login,
