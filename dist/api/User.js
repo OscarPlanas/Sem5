@@ -10,5 +10,7 @@ router.post('/register', userController_1.default.register);
 router.post('/login', userController_1.default.login);
 router.get('/profile', userController_1.default.profile);
 router.get('/', userController_1.default.getall);
+router.get('/:id', userController_1.default.getone);
+router.put('/forgotpass/:id', userController_1.default.changePass);
 exports.default = router;
 //# sourceMappingURL=User.js.map

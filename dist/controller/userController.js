@@ -56,10 +56,28 @@ const getone = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield User_1.default.findById(req.params.id);
     res.json(user);
 });
+const changePass = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield User_1.default.findById(req.params.id);
+    if (!user) {
+        return res.status(404).send('No user found.');
+    }
+    if (req.body.password === crypto_js_1.default.AES.decrypt(user.password, 'secret key 123').toString(crypto_js_1.default.enc.Utf8)) {
+        let newpassword = req.body.newpassword;
+        newpassword = crypto_js_1.default.AES.encrypt(newpassword, 'secret key 123').toString();
+        user.password = newpassword;
+        yield user.save();
+        res.json({ status: 'User Updated' });
+    }
+    else {
+        res.json({ status: 'Wrong password' });
+    }
+});
 exports.default = {
     register,
     login,
     profile,
-    getall
+    getall,
+    getone,
+    changePass
 };
 //# sourceMappingURL=userController.js.map

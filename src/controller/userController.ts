@@ -49,9 +49,28 @@ const getone = async (req: Request, res: Response) => {
 	res.json(user);
 };
 
+const changePass = async (req: Request, res: Response) => {
+	const user = await User.findById(req.params.id);
+	if (!user) {
+		return res.status(404).send('No user found.');
+	}
+	if(req.body.password === CryptoJS.AES.decrypt(user.password, 'secret key 123').toString(CryptoJS.enc.Utf8)){
+		let newpassword = req.body.newpassword;
+		newpassword = CryptoJS.AES.encrypt(newpassword, 'secret key 123').toString();
+		user.password = newpassword;
+		await user.save();
+		res.json({ status: 'User Updated' });
+	}
+	else{
+		res.json({ status: 'Wrong password' });
+	}
+};
+
 export default {
 	register,
 	login,
 	profile,
-	getall
+	getall,
+	getone,
+	changePass
 };
