@@ -4,7 +4,7 @@ import mongoose, { ConnectOptions } from "mongoose";
 import cors from "cors";
 import User from "./api/User";
 import Booking from "./api/Booking";
-
+import Question from "./api/Question";
 
 const app = express();
 const port = process.env.PORT || 5432;
@@ -17,6 +17,7 @@ app.use(cors());
 // Routes
 app.use('/api/users', User)
 app.use('/api/bookings', Booking)
+app.use('/api/questions', Question)
 
 // Idle
 app.get('/', ( req: express.Request, res: express.Response ) => {
